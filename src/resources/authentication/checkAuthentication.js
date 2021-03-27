@@ -30,6 +30,7 @@ const checkAuthentication = (req, res, next) => {
   }
 
   const rawToken = req.headers.authorization;
+  console.log(rawToken);
   if (!rawToken) {
     throw new AUTHORIZATION_ERROR();
   }
@@ -39,7 +40,9 @@ const checkAuthentication = (req, res, next) => {
     const secret = req.path.includes('tokens')
       ? JWT_REFRESH_SECRET_KEY
       : JWT_SECRET_KEY;
+
     const { id, tokenId } = jwt.verify(token, secret);
+
     req.userId = id;
     req.tokenId = tokenId;
   } catch (error) {

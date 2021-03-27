@@ -1,3 +1,6 @@
+const fs = require('fs');
+const logger = require('../../common/logging');
+
 const {
   BAD_REQUEST,
   UNPROCESSABLE_ENTITY,
@@ -18,6 +21,11 @@ const validator = (schema, property) => {
   return (req, res, next) => {
     const { error } = schema.validate(req[property]);
     if (error) {
+      if (req.file) {
+        fs.unlink(req.file.path, err => {
+          logger.info(err.message);
+        });
+      }
       res
         .status(property === 'body' ? UNPROCESSABLE_ENTITY : BAD_REQUEST)
         .json({ error: errorResponse(error.details) });
