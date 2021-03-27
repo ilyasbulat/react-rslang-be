@@ -31,6 +31,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/files', express.static(path.join(__dirname, '../files')));
+app.use('/public', express.static(path.join(__dirname, '../public')));
 
 app.use(checkAuthentication);
 

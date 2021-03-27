@@ -14,7 +14,8 @@ router.post(
   fileUpload.single('image'),
   validator(user, 'body'),
   async (req, res) => {
-    const userEntity = await userService.save(req.body);
+    const newUser = { ...req.body, image: req.file.path };
+    const userEntity = await userService.save(newUser);
     res.status(OK).send(userEntity.toResponse());
   }
 );
