@@ -23,6 +23,7 @@ const validator = (schema, property) => {
     if (error) {
       if (req.file) {
         fs.unlink(req.file.path, err => {
+          console.log(err);
           logger.info(err.message);
         });
       }
