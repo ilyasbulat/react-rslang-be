@@ -24,7 +24,7 @@ const validator = (schema, property) => {
       if (req.file) {
         fs.unlink(req.file.path, err => {
           console.log(err);
-          logger.info(err.message);
+          logger.info(err);
         });
       }
       res
